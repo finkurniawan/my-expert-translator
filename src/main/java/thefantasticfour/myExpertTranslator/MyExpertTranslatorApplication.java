@@ -7,7 +7,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class MyExpertTranslatorApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MyExpertTranslatorApplication.class, args);
+
+		SpringApplication.run(MyExpertTranslatorApplication.class, args
+
+		);
 	}
 
 }
