@@ -10,6 +10,10 @@ import thefantasticfour.myExpertTranslator.util.dto.TranslateDto;
 import thefantasticfour.myExpertTranslator.util.dto.TranslateRequest;
 import thefantasticfour.myExpertTranslator.util.dto.TranslateResponse;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+
 @Service
 @RequiredArgsConstructor
 public class TranslationServiceImplement implements TranslationService{
@@ -29,6 +33,11 @@ public class TranslationServiceImplement implements TranslationService{
 
         if (response != null && response.getData() != null && !response.getData().getTranslations().isEmpty()){
             String translatedText =response.getData().getTranslations().get(0).getTranslatedText();
+            try {
+                translatedText = URLDecoder.decode(translatedText, StandardCharsets.UTF_8.name());
+            } catch (UnsupportedEncodingException e) {
+                throw new RuntimeException("Error decoding translated text");
+            }
             translateDto.setTranslatedText(translatedText);
         } else {
             throw new RuntimeException("No translations found in response.");
