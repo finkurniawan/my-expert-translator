@@ -9,5 +9,7 @@ import lombok.*;
 @Getter
 @Setter
 public class TranslateDto {
-    private String Content;
+    private String text;
+    private String targetLanguage;
+    private String translatedText;
 }
