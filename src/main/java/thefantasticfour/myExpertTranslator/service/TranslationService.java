@@ -5,4 +5,5 @@ import thefantasticfour.myExpertTranslator.util.dto.TranslateRequest;
 
 public interface TranslationService {
     TranslateDto translate(TranslateDto translateDto);
+
 }

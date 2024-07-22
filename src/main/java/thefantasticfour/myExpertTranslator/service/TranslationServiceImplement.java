@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+import thefantasticfour.myExpertTranslator.model.Translate;
+import thefantasticfour.myExpertTranslator.repository.TranslateRepository;
 import thefantasticfour.myExpertTranslator.util.dto.TranslateDto;
 import thefantasticfour.myExpertTranslator.util.dto.TranslateRequest;
 import thefantasticfour.myExpertTranslator.util.dto.TranslateResponse;
@@ -20,6 +22,7 @@ public class TranslationServiceImplement implements TranslationService{
     private final RestTemplate restTemplate;
     private final String placeHolderUrl = "https://translation.googleapis.com/language/translate/v2";
     private final String API_KEY = "AIzaSyAsyfcq0SeZAN6dHoxc7CRkMDpL1QD-CO0";
+    private final TranslateRepository translateRepository;
 
     @Override
     public TranslateDto translate(TranslateDto translateDto) {
@@ -39,6 +42,11 @@ public class TranslationServiceImplement implements TranslationService{
                 throw new RuntimeException("Error decoding translated text");
             }
             translateDto.setTranslatedText(translatedText);
+            translateRepository.save(Translate.builder()
+                    .q(translateDto.getText())
+                    .result(translateDto.getTranslatedText())
+                    .target(translateDto.getTargetLanguage())
+                    .build());
         } else {
             throw new RuntimeException("No translations found in response.");
         }
