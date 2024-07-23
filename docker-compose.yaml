@@ -14,17 +14,18 @@ services:
       - pg_data:/var/lib/postgresql/data
 
   translator:
-    build: .
     container_name: translator
+    image: finkurniawan/my-expert-translator
     ports:
       - "8080:8080"
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/translator
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
-      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
-      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+#    build: .
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/translator
+#      SPRING_DATASOURCE_USERNAME: postgres
+#      SPRING_DATASOURCE_PASSWORD: postgres
+#      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+#      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
+#      SPRING_JPA_HIBERNATE_DDL_AUTO: update
     depends_on:
       - postgres
 
